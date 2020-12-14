@@ -301,9 +301,10 @@ let a = expand('%:e')
 if a == "cpp"
 	map <F9> :w <CR>  :!clear && g++ % <CR>
 	map  <C-F9>  :w  <CR>  :!clear && g++ % -o %< && ./%<  <CR>
+	"Explicando o código acima. Mapeia o Ctrl+F9 como: 1) ':w <CR>' salva o arquivo (<CR> equivale ENTER); 2) ':!clear' limpa a tela para o output; 3) '&&' prepara o próximo comando que o bash vai receber; 4) 'g++ %' seria compilar com C++ o arquivo atual (% é a variavel para o nome do arquivo no VimScript), '-o' é a opção para escolher o nome do output do g++ e '%<' significa ter como output o nome do arquivo atual, mas sem a extensão ('<'); 5) '&& ./%< <CR>' prepara para o novo comando e executa o arquivo na pasta atual com o nome do arquivo atual sem extensão e dá um ENTER.
 elseif a == "c"
 	map <F9> :w <CR>  :!clear && gcc % <CR>
 	map  <C-F9>  :w  <CR>  :!clear && gcc % -o %< && ./%<  <CR>
 elseif a == "js"
-	map  <C-F9>  :w  <CR>  :!clear && node % -o %< <CR>
+	map  <C-F9>  :w  <CR>  :!clear && node % <CR>
 endif
