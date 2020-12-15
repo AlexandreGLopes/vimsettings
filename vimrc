@@ -295,6 +295,19 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+"CoC instalação automática de extensões
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css', 'coc-sh', 'coc-java', 'coc-phpls', 'coc-rome', 'coc-sql', 'coc-tsserver', 'coc-clangd', 'coc-html', 'coc-prettier']
+
+" vim-prettier
+" "let g:prettier#quickfix_enabled = 0
+" "let g:prettier#quickfix_auto_focus = 0
+" " prettier command for coc
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" " run prettier on save
+" "let g:prettier#autoformat = 0
+" "autocmd BufWritePre
+" *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html
+" PrettierAsync
 
 " Compile and Run with F9 e Cotrl + F9
 let a = expand('%:e')
@@ -307,4 +320,6 @@ elseif a == "c"
 	map  <C-F9>  :w  <CR>  :!clear && gcc % -o %< && ./%<  <CR>
 elseif a == "js"
 	map  <C-F9>  :w  <CR>  :!clear && node % <CR>
+elseif a == "html"
+	map <C-F9>  :w  <CR>  :!explorer.exe % <CR>
 endif
