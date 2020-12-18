@@ -13,6 +13,13 @@ syntax on
 
 set mouse=a
 
+"Instalação automática do Vim Plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Using junegunn/vim-plug here. Maybe change to Vundle
 call plug#begin()
 
