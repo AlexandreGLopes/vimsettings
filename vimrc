@@ -330,3 +330,6 @@ elseif a == "js"
 elseif a == "html"
 	map <C-F9>  :w  <CR>  :!explorer.exe % <CR>
 endif
+
+"Código para preencher HTML inicial
+command Html :r ~/.vim/html5
