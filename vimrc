@@ -331,7 +331,7 @@ elseif a == "c"
 	map  <C-F9>  :w  <CR>  :!clear && gcc % -o %< && ./%<  <CR>
 elseif a == "js"
 "Adicionado :p após nome do arquivo (%) para fazer o comando ser executado com o path inteiro do arquivo em questão
-	map  <C-F9>  :w  <CR>  :!clear && node %:p <CR>
+	map  <C-F9>  :w  <CR>  :!clear && node "%:p" <CR>
 elseif a == "html"
 	map <C-F9>  :w  <CR>  :!explorer.exe % <CR>
 endif
