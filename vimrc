@@ -334,7 +334,7 @@ elseif a == "js"
 "Adicionado :p após nome do arquivo (%) para fazer o comando ser executado com o path inteiro do arquivo em questão
 	map  <C-F9>  :w  <CR>  :!clear && node "%:p" <CR>
 elseif a == "html"
-	map <C-F9>  :w  <CR>  :!explorer.exe % <CR>
+	map <C-F9>  :w  <CR>  :if !isdirectory('/mnt/c') <CR> !clear && sensible-browser % <CR> else <CR> !explorer.exe % <CR> endif <CR> <CR>
 endif
 
 "Código para preencher HTML inicial
