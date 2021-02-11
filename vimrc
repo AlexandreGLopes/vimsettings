@@ -337,5 +337,5 @@ elseif a == "html"
 	map <C-F9>  :w  <CR>  :if !isdirectory('/mnt/c') <CR> !clear && sensible-browser % <CR> else <CR> !explorer.exe % <CR> endif <CR> <CR>
 endif
 
-"Código para preencher HTML inicial
-command Html :r ~/.vim/html5
+"Código para preencher HTML inicial (adicionado ao código três comandos separados para ir para a primeira linha, deletá-la, e depois voltar para a última)
+command Html :r ~/.vim/html5 | 1 | delete | %
