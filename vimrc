@@ -8,18 +8,12 @@ set number
 set showcmd
 set incsearch
 set hlsearch
+set visualbell
 set pastetoggle=<F2>
 
 syntax on
 
 set mouse=a
-
-"Instalação automática do Vim Plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 
 " Using junegunn/vim-plug here. Maybe change to Vundle
 call plug#begin()
@@ -307,35 +301,31 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-"CoC instalação automática de extensões
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css', 'coc-sh', 'coc-java', 'coc-phpls', 'coc-rome', 'coc-sql', 'coc-tsserver', 'coc-clangd', 'coc-html', 'coc-prettier']
-
-" vim-prettier
-" "let g:prettier#quickfix_enabled = 0
-" "let g:prettier#quickfix_auto_focus = 0
-" " prettier command for coc
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-" " run prettier on save
-" "let g:prettier#autoformat = 0
-" "autocmd BufWritePre
-" *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html
-" PrettierAsync
 
 " Compile and Run with F9 e Cotrl + F9
 let a = expand('%:e')
 if a == "cpp"
 	map <F9> :w <CR>  :!clear && g++ % <CR>
 	map  <C-F9>  :w  <CR>  :!clear && g++ % -o %< && ./%<  <CR>
-	"Explicando o código acima. Mapeia o Ctrl+F9 como: 1) ':w <CR>' salva o arquivo (<CR> equivale ENTER); 2) ':!clear' limpa a tela para o output; 3) '&&' prepara o próximo comando que o bash vai receber; 4) 'g++ %' seria compilar com C++ o arquivo atual (% é a variavel para o nome do arquivo no VimScript), '-o' é a opção para escolher o nome do output do g++ e '%<' significa ter como output o nome do arquivo atual, mas sem a extensão ('<'); 5) '&& ./%< <CR>' prepara para o novo comando e executa o arquivo na pasta atual com o nome do arquivo atual sem extensão e dá um ENTER.
 elseif a == "c"
 	map <F9> :w <CR>  :!clear && gcc % <CR>
 	map  <C-F9>  :w  <CR>  :!clear && gcc % -o %< && ./%<  <CR>
 elseif a == "js"
-"Adicionado :p após nome do arquivo (%) para fazer o comando ser executado com o path inteiro do arquivo em questão
-	map  <C-F9>  :w  <CR>  :!clear && node "%:p" <CR>
+	map  <C-F9>  :w  <CR>  :!clear && node %:p <CR>
+elseif a == "java"
+	map <C-F9>  :w  <CR>  :!clear && javac % && java %< <CR>
 elseif a == "html"
 	map <C-F9>  :w  <CR>  :if !isdirectory('/mnt/c') <CR> !clear && sensible-browser % <CR> else <CR> !explorer.exe % <CR> endif <CR> <CR>
 endif
 
-"Código para preencher HTML inicial (adicionado ao código três comandos separados para ir para a primeira linha, deletá-la, e depois voltar para a última)
+"Código para preencher HTML inicial
 command Html :r ~/.vim/html5 | 1 | delete | %
+
+"Código para escrever o main do java automático
+command Psvm :r ~/.vim/java | 2 | let text = expand('%<') | exe "normal! a class " . text . " {\<Esc>" | 1 | delete | call cursor (4,3)
+
+"Comando para modificar o arquivo vimrc abrindo split panel
+:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+"Comando para fazer as alterações terem efeito sem sair do vim
+:nnoremap <leader>sv :source $MYVIMRC<cr>
+
